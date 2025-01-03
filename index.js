@@ -14,3 +14,9 @@ function multiply(...numbers) {
 function divide(...numbers) {
   return numbers.reduce((total, current) => total / current);
 }
+
+function validateNumbers(...numbers) {
+  for (let number of numbers)
+    if (typeof number != "number") return false;
+  return true;
+}
