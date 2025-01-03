@@ -10,3 +10,7 @@ function rest(...numbers) {
 function multiply(...numbers) {
   return numbers.reduce((total, current) => total * current, 1);
 }
+
+function divide(...numbers) {
+  return numbers.reduce((total, current) => total / current);
+}
