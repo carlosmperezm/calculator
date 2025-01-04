@@ -42,11 +42,12 @@ const userInputDisplay = display.querySelector("#user-input");
 const buttonsContainer = document.querySelector("#buttons-container");
 const buttons = document.querySelectorAll(".button");
 
-const DECIMAL_NUMBER_REGEX = /\d|\./;
+const NUMBER_OR_DOT_REGEX = /\d|\./;
 const OPERATOR_REGEX = /\+|-|\*|\//;
 const EQUAL_OPERATOR = "=";
 const AC = "AC";
 const DELETE = "DELETE";
+const DOT = ".";
 
 let operator = "";
 let firstNumber = 0;
@@ -59,16 +60,21 @@ buttonsContainer.addEventListener("click", evnt => {
 
   if (targetedButton.tagName != "BUTTON") return;
 
+  if (targetedButtonText === DOT &&
+    (firstNumber.toString().includes(DOT) || secondNumber.toString().includes(DOT))
+  ) return;
 
-  if (targetedButtonText.match(DECIMAL_NUMBER_REGEX) && !operator) {
+  if (targetedButtonText.match(NUMBER_OR_DOT_REGEX) && !operator) {
     firstNumber ? firstNumber += targetedButtonText : firstNumber = targetedButtonText;
     updateDisplay(userInputDisplay, firstNumber);
+
   }
   else if (firstNumber && targetedButtonText.match(OPERATOR_REGEX)) {
     operator = targetedButtonText;
     updateDisplay(historyDisplay, firstNumber + operator)
+    updateDisplay(userInputDisplay, 0);
   }
-  else if (operator && targetedButtonText.match(DECIMAL_NUMBER_REGEX)) {
+  else if (operator && targetedButtonText.match(NUMBER_OR_DOT_REGEX)) {
     secondNumber ? secondNumber += targetedButtonText : secondNumber = targetedButtonText;
     updateDisplay(userInputDisplay, secondNumber);
   }
