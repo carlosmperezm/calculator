@@ -88,6 +88,20 @@ buttonsContainer.addEventListener("click", evnt => {
     updateDisplay(userInputDisplay, 0);
     updateDisplay(historyDisplay)
   }
+  else if (targetedButtonText.match(DELETE)) {
+    if (firstNumber && !operator) {
+      firstNumber = firstNumber.toString().slice(0, firstNumber.length - 1);
+      updateDisplay(userInputDisplay, firstNumber);
+    }
+    else if (operator && !secondNumber) {
+      operator = "";
+      updateDisplay(historyDisplay);
+    }
+    else if (operator && secondNumber) {
+      secondNumber = secondNumber.toString().slice(0, secondNumber.length - 1);
+      updateDisplay(userInputDisplay, secondNumber);
+    }
+  }
   else {
     console.log("not a number")
   }
