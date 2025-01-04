@@ -47,10 +47,68 @@ const EQUAL_OPERATOR = "=";
 const AC = "AC";
 const BACKSPACE = "BACKSPACE";
 const DOT = ".";
+const ENTER = "ENTER";
+const ESCAPE = "ESCAPE";
 
 let operator = "";
 let firstNumber = 0;
 let secondNumber = 0;
+
+document.body.addEventListener("keydown", evnt => {
+
+  if (evnt.key.toUpperCase() === DOT &&
+    (firstNumber.toString().includes(DOT) || secondNumber.toString().includes(DOT))
+  ) return;
+
+  if (evnt.key.match(NUMBER_OR_DOT_REGEX) && !operator) {
+    firstNumber ? firstNumber += evnt.key : firstNumber = evnt.key;
+    updateDisplay(userInputDisplay, firstNumber);
+  }
+  else if (evnt.key.match(OPERATOR_REGEX) && !secondNumber) {
+    operator = evnt.key;
+    updateDisplay(historyDisplay, firstNumber + operator)
+    updateDisplay(userInputDisplay, 0);
+  }
+  else if (evnt.key.match(NUMBER_OR_DOT_REGEX) && operator) {
+    secondNumber ? secondNumber += evnt.key : secondNumber = evnt.key;
+    updateDisplay(userInputDisplay, secondNumber);
+  }
+  else if (evnt.key.toUpperCase() == BACKSPACE) {
+    if (firstNumber && !operator) {
+      if (firstNumber.toString().length >= 10) firstNumber = firstNumber.toString().slice(0, 10);
+      firstNumber = firstNumber.toString().slice(0, firstNumber.length - 1);
+      updateDisplay(userInputDisplay, firstNumber);
+    }
+    else if (operator && !secondNumber) {
+      operator = "";
+      updateDisplay(historyDisplay);
+      updateDisplay(userInputDisplay, firstNumber);
+    }
+    else if (operator && secondNumber) {
+      if (secondNumber.toString().length >= 10) secondNumber = secondNumber.toString().slice(0, 10);
+      secondNumber = secondNumber.toString().slice(0, secondNumber.length - 1);
+      updateDisplay(userInputDisplay, secondNumber);
+    }
+  }
+  else if (evnt.key.toUpperCase() == ENTER && secondNumber) {
+    updateDisplay(historyDisplay, firstNumber + operator + secondNumber);
+    result = operate(Number(firstNumber), operator, Number(secondNumber));
+    updateDisplay(userInputDisplay, result);
+
+    firstNumber = result;
+    operator = "";
+    secondNumber = 0;
+  }
+  else if (evnt.key.toUpperCase() == ESCAPE) {
+    firstNumber = 0;
+    operator = "";
+    secondNumber = 0;
+    updateDisplay(userInputDisplay, 0);
+    updateDisplay(historyDisplay)
+  }
+
+  console.log(evnt.key, typeof evnt.key);
+})
 
 buttonsContainer.addEventListener("click", evnt => {
   const targetedButton = evnt.target;
