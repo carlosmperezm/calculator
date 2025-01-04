@@ -105,6 +105,7 @@ buttonsContainer.addEventListener("click", evnt => {
   }
   else if (targetedButtonText.match(DELETE)) {
     if (firstNumber && !operator) {
+      if (firstNumber.toString().length >= 10) firstNumber = firstNumber.toString().slice(0, 10);
       firstNumber = firstNumber.toString().slice(0, firstNumber.length - 1);
       updateDisplay(userInputDisplay, firstNumber);
     }
@@ -113,6 +114,7 @@ buttonsContainer.addEventListener("click", evnt => {
       updateDisplay(historyDisplay);
     }
     else if (operator && secondNumber) {
+      if (secondNumber.toString().length >= 10) secondNumber = secondNumber.toString().slice(0, 10);
       secondNumber = secondNumber.toString().slice(0, secondNumber.length - 1);
       updateDisplay(userInputDisplay, secondNumber);
     }
