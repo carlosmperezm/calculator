@@ -31,7 +31,7 @@ function operate(firstNumber, operator, secondNumber) {
   }
 }
 
-function updateDisplay(component, value) {
+function updateDisplay(component, value = "") {
   component.textContent = value;
 }
 
@@ -44,7 +44,9 @@ const buttons = document.querySelectorAll(".button");
 
 const DECIMAL_NUMBER_REGEX = /\d|\./;
 const OPERATOR_REGEX = /\+|-|\*|\//;
-const EQUAL_OPERATOR_REGEX = /=/;
+const EQUAL_OPERATOR = "=";
+const AC = "AC";
+const DELETE = "DELETE";
 
 let operator = "";
 let firstNumber = 0;
@@ -70,7 +72,7 @@ buttonsContainer.addEventListener("click", evnt => {
     secondNumber ? secondNumber += targetedButtonText : secondNumber = targetedButtonText;
     updateDisplay(userInputDisplay, secondNumber);
   }
-  else if (targetedButtonText.match(EQUAL_OPERATOR_REGEX) && secondNumber) {
+  else if (targetedButtonText.match(EQUAL_OPERATOR) && secondNumber) {
     updateDisplay(historyDisplay, firstNumber + operator + secondNumber);
     result = operate(Number(firstNumber), operator, Number(secondNumber));
     updateDisplay(userInputDisplay, result);
@@ -78,6 +80,13 @@ buttonsContainer.addEventListener("click", evnt => {
     firstNumber = result;
     operator = "";
     secondNumber = 0;
+  }
+  else if (targetedButtonText.match(AC)) {
+    firstNumber = 0;
+    operator = "";
+    secondNumber = 0;
+    updateDisplay(userInputDisplay, 0);
+    updateDisplay(historyDisplay)
   }
   else {
     console.log("not a number")
