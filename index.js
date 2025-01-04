@@ -31,16 +31,31 @@ function operate(firstNumber, operator, secondNumber) {
   }
 }
 
+function updateDisplay(component, value) {
+  component.textContent = value;
+  console.log(value);
+}
 
 const calculatorContainer = document.querySelector("#calculator-container");
 const display = document.querySelector("#display");
+const history = display.querySelector("#history");
+const userInputDisplay = display.querySelector("#user-input");
 const buttonsContainer = document.querySelector("#buttons-container");
 const buttons = document.querySelectorAll(".button");
+
+const NUMBER_OR_DOT_REGEX = /\d|./g;
 
 let operator = "";
 let firstNumber = 0;
 let secondNumber = 0;
 
 buttonsContainer.addEventListener("click", evnt => {
-  const targetedButton = event.target;
+  const targetedButton = evnt.target;
+  const targetedButtonText = evnt.target.textContent;
+  console.log(targetedButton);
+
+
+  if (targetedButtonText.match(NUMBER_OR_DOT_REGEX))
+    firstNumber += targetedButtonText;
+  updateDisplay(userInputDisplay, firstNumber);
 })
