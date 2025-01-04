@@ -45,7 +45,7 @@ const NUMBER_OR_DOT_REGEX = /\d|\./;
 const OPERATOR_REGEX = /\+|-|\*|\//;
 const EQUAL_OPERATOR = "=";
 const AC = "AC";
-const DELETE = "DELETE";
+const BACKSPACE = "BACKSPACE";
 const DOT = ".";
 
 let operator = "";
@@ -93,14 +93,14 @@ buttonsContainer.addEventListener("click", evnt => {
     operator = "";
     secondNumber = 0;
   }
-  else if (targetedButtonText.match(AC)) {
+  else if (targetedButtonText == AC) {
     firstNumber = 0;
     operator = "";
     secondNumber = 0;
     updateDisplay(userInputDisplay, 0);
     updateDisplay(historyDisplay)
   }
-  else if (targetedButtonText.match(DELETE)) {
+  else if (targetedButtonText == BACKSPACE) {
     if (firstNumber && !operator) {
       if (firstNumber.toString().length >= 10) firstNumber = firstNumber.toString().slice(0, 10);
       firstNumber = firstNumber.toString().slice(0, firstNumber.length - 1);
@@ -109,14 +109,12 @@ buttonsContainer.addEventListener("click", evnt => {
     else if (operator && !secondNumber) {
       operator = "";
       updateDisplay(historyDisplay);
+      updateDisplay(userInputDisplay, firstNumber);
     }
     else if (operator && secondNumber) {
       if (secondNumber.toString().length >= 10) secondNumber = secondNumber.toString().slice(0, 10);
       secondNumber = secondNumber.toString().slice(0, secondNumber.length - 1);
       updateDisplay(userInputDisplay, secondNumber);
     }
-  }
-  else {
-    console.log("not a number")
   }
 })

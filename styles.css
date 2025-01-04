@@ -17,7 +17,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  min-width: 370px;
+  min-width: 433px;
   max-width: 370px;
   min-height: 500px;
   max-height: 600px;
@@ -68,7 +68,7 @@ body {
 
 button {
   height: 4rem;
-  width: 4rem;
+  width: 5rem;
   border: 2px solid;
   border-radius: 5px;
   font-size: x-large;
