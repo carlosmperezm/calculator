@@ -13,7 +13,6 @@ body {
 }
 
 #calculator-container {
-  background-color: Purple;
   border: 1px solid;
   display: flex;
   flex-direction: column;
@@ -21,7 +20,7 @@ body {
   min-width: 370px;
   max-width: 370px;
   min-height: 500px;
-  max-height: 500px;
+  /* max-height: 500px; */
 }
 
 #buttons-container {
@@ -50,17 +49,24 @@ body {
 #display {
   background-color: White;
   margin: 1rem;
-  height: 5rem;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: space-around;
   text-align: end;
+  flex-basis: 7rem;
+  font-size: 2rem;
+  border: 2px solid Black;
+  border-radius: 5px;
+}
+
+#display span {
+  padding-right: 1rem;
 }
 
 button {
   height: 4rem;
   width: 4rem;
   border: 2px solid;
-  border-radius: 10%;
+  border-radius: 5px;
   font-size: x-large;
 }
