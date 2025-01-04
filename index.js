@@ -32,6 +32,8 @@ function operate(firstNumber, operator, secondNumber) {
 }
 
 function updateDisplay(component, value = "") {
+  if (value.toString().length >= 10)
+    value = value.slice(0, 11);
   component.textContent = value;
 }
 
