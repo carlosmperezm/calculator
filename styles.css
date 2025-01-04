@@ -9,7 +9,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: Gray;
+  background-color: mediumpurple;
 }
 
 #calculator-container {
@@ -20,23 +20,26 @@ body {
   min-width: 370px;
   max-width: 370px;
   min-height: 500px;
-  /* max-height: 500px; */
+  max-height: 600px;
+  background-color: Gray;
+  border: 2px solid Black;
+  border-radius: 15px;
 }
 
 #buttons-container {
   display: flex;
   flex-direction: column;
-  background-color: Gray;
   padding: 1rem;
 }
 
 #aux-buttons {
   display: flex;
+  margin: 1rem;
+  gap: 1rem;
 }
 
 #aux-buttons button {
   flex: 1;
-  margin: 1rem;
 }
 
 #number-and-operations-section {
@@ -53,7 +56,7 @@ body {
   flex-direction: column;
   justify-content: space-around;
   text-align: end;
-  flex-basis: 7rem;
+  flex-basis: 9rem;
   font-size: 2rem;
   border: 2px solid Black;
   border-radius: 5px;
@@ -69,4 +72,9 @@ button {
   border: 2px solid;
   border-radius: 5px;
   font-size: x-large;
+}
+
+button:hover {
+  cursor: pointer;
+  background: darkgray;
 }
