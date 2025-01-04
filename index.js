@@ -33,17 +33,17 @@ function operate(firstNumber, operator, secondNumber) {
 
 function updateDisplay(component, value) {
   component.textContent = value;
-  console.log(value);
 }
 
 const calculatorContainer = document.querySelector("#calculator-container");
 const display = document.querySelector("#display");
-const history = display.querySelector("#history");
+const historyDisplay = display.querySelector("#history");
 const userInputDisplay = display.querySelector("#user-input");
 const buttonsContainer = document.querySelector("#buttons-container");
 const buttons = document.querySelectorAll(".button");
 
-const NUMBER_OR_DOT_REGEX = /\d|./g;
+const DECIMAL_NUMBER_REGEX = /\d|\./;
+const OPERATOR_REGEX = /\+|-|\*|\//;
 
 let operator = "";
 let firstNumber = 0;
@@ -52,10 +52,28 @@ let secondNumber = 0;
 buttonsContainer.addEventListener("click", evnt => {
   const targetedButton = evnt.target;
   const targetedButtonText = evnt.target.textContent;
-  console.log(targetedButton);
+  let result = 0;
 
+  if (!targetedButton.classList.contains("button")) return;
 
-  if (targetedButtonText.match(NUMBER_OR_DOT_REGEX))
-    firstNumber += targetedButtonText;
-  updateDisplay(userInputDisplay, firstNumber);
+  if (targetedButtonText.match(DECIMAL_NUMBER_REGEX) && !operator) {
+    firstNumber ? firstNumber += targetedButtonText : firstNumber = targetedButtonText;
+    updateDisplay(userInputDisplay, firstNumber);
+  }
+  else if (firstNumber && targetedButtonText.match(OPERATOR_REGEX)) {
+    operator = targetedButtonText;
+    updateDisplay(historyDisplay, firstNumber + operator)
+  }
+  else if (operator && targetedButtonText.match(DECIMAL_NUMBER_REGEX)) {
+    secondNumber ? secondNumber += targetedButtonText : secondNumber = targetedButtonText;
+    updateDisplay(userInputDisplay, secondNumber);
+  }
+  else if (targetedButtonText.match(/=/) && secondNumber) {
+    updateDisplay(historyDisplay, firstNumber + operator + secondNumber);
+    result = operate(Number(firstNumber), operator, Number(secondNumber));
+    updateDisplay(userInputDisplay, result);
+  }
+  else {
+    console.log("not a number")
+  }
 })
