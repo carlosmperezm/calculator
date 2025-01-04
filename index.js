@@ -69,7 +69,7 @@ buttonsContainer.addEventListener("click", evnt => {
     updateDisplay(userInputDisplay, firstNumber);
 
   }
-  else if (firstNumber && targetedButtonText.match(OPERATOR_REGEX)) {
+  else if (firstNumber && targetedButtonText.match(OPERATOR_REGEX) && !secondNumber) {
     operator = targetedButtonText;
     updateDisplay(historyDisplay, firstNumber + operator)
     updateDisplay(userInputDisplay, 0);
