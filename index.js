@@ -15,18 +15,15 @@ function divide(...numbers) {
   return numbers.reduce((total, current) => total / current);
 }
 
-function validateNumbers(...numbers) {
-  for (let number of numbers)
-    if (typeof number != "number") return false;
-  return true;
-}
-
 function operate(firstNumber, operator, secondNumber) {
   switch (operator) {
     case "+": return add(firstNumber, secondNumber);
     case "-": return substract(firstNumber, secondNumber);
     case "*": return multiply(firstNumber, secondNumber);
-    case "/": return divide(firstNumber, secondNumber);
+    case "/": {
+      if (secondNumber === 0) return "LOL";
+      return divide(firstNumber, secondNumber);
+    }
     default: throw new Error("Uknow operator");
   }
 }
